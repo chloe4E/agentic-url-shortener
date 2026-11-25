@@ -25,18 +25,20 @@ Response:
 
 ```json
 {
-  "code": "1",
-  "shortUrl": "http://localhost:3000/1",
+  "code": "3bnCZrcw0mriDNsNjC4eqTnNkb",
+  "shortUrl": "http://localhost:3000/3bnCZrcw0mriDNsNjC4eqTnNkb",
   "url": "https://example.com"
 }
 ```
 
-Codes are generated from a base62-encoded incrementing counter.
+The code is the URL's bytes encoded in base62, used as the key in the
+store (value is the original URL). Encoding the same URL always
+produces the same code.
 
 ### Visit a short URL
 
 ```bash
-curl -L http://localhost:3000/1
+curl -L http://localhost:3000/3bnCZrcw0mriDNsNjC4eqTnNkb
 ```
 
 Redirects to the original URL.

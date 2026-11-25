@@ -1,13 +1,18 @@
 const ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-const BASE = ALPHABET.length;
+const BASE = 62n;
 
-export function encode(num) {
-  if (num === 0) return ALPHABET[0];
+export function encode(buffer) {
+  let num = 0n;
+  for (const byte of buffer) {
+    num = num * 256n + BigInt(byte);
+  }
+
+  if (num === 0n) return ALPHABET[0];
 
   let result = "";
-  while (num > 0) {
-    result = ALPHABET[num % BASE] + result;
-    num = Math.floor(num / BASE);
+  while (num > 0n) {
+    result = ALPHABET[Number(num % BASE)] + result;
+    num = num / BASE;
   }
   return result;
 }

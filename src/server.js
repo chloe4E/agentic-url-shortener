@@ -1,6 +1,6 @@
 import express from "express";
 import { encode } from "./base62.js";
-import { saveUrl, getUrl, getNextId } from "./store.js";
+import { saveUrl, getUrl } from "./store.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.post("/shorten", (req, res) => {
     return res.status(400).json({ error: "A valid 'url' field is required" });
   }
 
-  const code = encode(getNextId());
+  const code = encode(Buffer.from(url, "utf8"));
   saveUrl(code, url);
 
   res.status(201).json({
