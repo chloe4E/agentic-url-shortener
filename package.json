@@ -1,0 +1,16 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A simple URL shortener server",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "nanoid": "^5.0.7"
+  }
+}
