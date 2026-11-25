@@ -1,6 +1,6 @@
 import express from "express";
-import { encode } from "./base62.js";
-import { saveUrl, getUrl } from "./store.js";
+import { encode, decode } from "./base62.js";
+import { saveUrl, getUrlById } from "./store.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,8 +23,8 @@ app.post("/shorten", (req, res) => {
     return res.status(400).json({ error: "A valid 'url' field is required" });
   }
 
-  const code = encode(Buffer.from(url, "utf8"));
-  saveUrl(code, url);
+  const id = saveUrl(url);
+  const code = encode(id);
 
   res.status(201).json({
     code,
@@ -34,13 +34,14 @@ app.post("/shorten", (req, res) => {
 });
 
 app.get("/:code", (req, res) => {
-  const url = getUrl(req.params.code);
+  const id = decode(req.params.code);
+  const url = getUrlById(id);
 
   if (!url) {
     return res.status(404).json({ error: "Short URL not found" });
   }
 
-  res.redirect(url);
+  res.redirect(302, url);
 });
 
 app.listen(PORT, () => {

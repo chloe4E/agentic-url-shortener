@@ -1,9 +1,12 @@
-const codeToUrl = new Map();
+const idToUrl = new Map();
+let nextId = 1;
 
-export function saveUrl(code, url) {
-  codeToUrl.set(code, url);
+export function saveUrl(url) {
+  const id = nextId++;
+  idToUrl.set(id, url);
+  return id;
 }
 
-export function getUrl(code) {
-  return codeToUrl.get(code);
+export function getUrlById(id) {
+  return idToUrl.get(id);
 }
