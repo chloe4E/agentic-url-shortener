@@ -1,6 +1,6 @@
 import express from "express";
-import { nanoid } from "nanoid";
-import { saveUrl, getUrl, hasCode } from "./store.js";
+import { encode } from "./base62.js";
+import { saveUrl, getUrl, getNextId } from "./store.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,11 +23,7 @@ app.post("/shorten", (req, res) => {
     return res.status(400).json({ error: "A valid 'url' field is required" });
   }
 
-  let code = nanoid(7);
-  while (hasCode(code)) {
-    code = nanoid(7);
-  }
-
+  const code = encode(getNextId());
   saveUrl(code, url);
 
   res.status(201).json({

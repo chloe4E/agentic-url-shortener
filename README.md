@@ -25,16 +25,18 @@ Response:
 
 ```json
 {
-  "code": "abc1234",
-  "shortUrl": "http://localhost:3000/abc1234",
+  "code": "1",
+  "shortUrl": "http://localhost:3000/1",
   "url": "https://example.com"
 }
 ```
 
+Codes are generated from a base62-encoded incrementing counter.
+
 ### Visit a short URL
 
 ```bash
-curl -L http://localhost:3000/abc1234
+curl -L http://localhost:3000/1
 ```
 
 Redirects to the original URL.
